@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= contest.name%></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/view-contest.css">
+  </head>
+  <body>
+    <h1>Welcome to <%= contest.name%></h1>
+    <div class="container">
+      <form
+            class="file"
+            action="/upload/<%= contest._id%>"
+            method="post"
+            enctype="multipart/form-data"
+          >
+        </div>
+        <div>
+            <input class="input" type="file" name="file" />
+          </div>
+          <div>
+            <input
+              class="input"
+              type="text"
+              name="caption"
+              placeholder="Enter caption"
+            />
+          </div>
+            <div>
+              <button class="button" type="submit">Submit for Contest</button>
+            </div>
+          </form>
+    </div>
+    <div id="saved">
+      <div class="container">
+      <% if(allPosts.posts.length > 0) { %>
+        <% allPosts.posts.forEach(function(post) { %>
+            <div class="card" style="width: 12rem">
+              <div class="card-img">
+                <img
+                  class="card-img-top"
+                  src="/images/uploads/<%= post.image %>"
+                  alt="<%= post.caption %>"
+                />
+              </div>
+              <div class="card-body">
+                <p class="card-title"><%= post.postText %></p>
+              </div>
+              <form
+                class="form-like"
+                action="/like/<%= post._id %>"
+                method="POST"
+              >
+                <button type="submit" class="like">
+                  <i class="fas fa-heart"></i>
+                </button>
+              </form>
+              <span class="spn-like">
+                <%= post.likes.length %> <%= post.likes.length > 1 ? 'likes' : 'like' %>
+              </span>              
+            </div>
+              <% }); %>
+            <% } else { %>
+              <p>No Posts Yet</p>
+            <% } %> 
+      </div>
+    </div>   
+  </body>
+</html>
